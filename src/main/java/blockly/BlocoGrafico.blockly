@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><blockly formTarget="src/main/mobileapp/www/views/logged/teste2.view.html" resourceType="JAVA" ruleDescription="BlocoGrafico" ruleName="BlocoGrafico" ruleSynchronous="false" ruleTimeout="300" ruleType="I">
+  <metadata scale="1" scrollx="357.0000000000002" scrolly="-1.1368683772161603e-13" target="Anb:u5+^,0vLkL9QIqn5"/>
+  <block colour="#995ba5" id="Anb:u5+^,0vLkL9QIqn5" origintype="procedures_defreturn" output="false" tooltip="Cria uma função que possui um valor de retorno." type="procedures_defreturn" x="-350" y="130">
+    <field name="NAME">Executar</field>
+    <comment h="80" pinned="false" w="160">BlocoGrafico</comment>
+    <statement name="STACK">
+      <block colour="#a26b21" dependencyby="Anb:u5+^,0vLkL9QIqn5" id="I;X]8?9:4y$0@O3DVP[p" multilayer="false" namespace="cronapi.chart.Operations.createChart" origintype="procedures_arbitrary_callnoreturn" output="false" returntype="ObjectType.VOID" tooltip="%3Cdiv%20class=%22name%22%3E%3Cstrong%3ENome:%3C/strong%3E%3Cdiv%3ECriar%20gr%C3%A1fico%3C/div%3E%3C/div%3E%3Cdiv%20class=%22description%22%3E%3Cstrong%3EDescri%C3%A7%C3%A3o:%3C/strong%3E%3Cdiv%3EFun%C3%A7%C3%A3o%20que%20cria%20um%20gr%C3%A1fico%3C/div%3E%3C/div%3E%3Cdiv%20class=%22params%22%3E%3Cstrong%3EParam%C3%AAtro:%3C/strong%3E%3Cdiv%3E%3Cspan%3E%20-%20Id%20:%20Objeto%3C/span%3E%3Cdiv%3E%20Id%20do%20gr%C3%A1fico%20(canvas)%3C/div%3E%3Cspan%3E%20-%20Tipo%20de%20gr%C3%A1fico%20:%20Texto%3C/span%3E%3Cdiv%3E%20Tipo%20de%20gr%C3%A1fico%20a%20ser%20criado%3C/div%3E%3Cspan%3E%20-%20Legenda%20:%20Objeto%3C/span%3E%3Cdiv%3E%20Legenda%20do%20gr%C3%A1fico%3C/div%3E%3Cspan%3E%20-%20Op%C3%A7%C3%B5es%20:%20Objeto%3C/span%3E%3Cdiv%3E%20Op%C3%A7%C3%B5es%20do%20gr%C3%A1fico%3C/div%3E%3Cspan%3E%20-%20S%C3%A9rie(s)%20do%20gr%C3%A1fico%20:%20Objeto%3C/span%3E%3Cdiv%3E%20Conjunto%20de%20s%C3%A9ries%20do%20gr%C3%A1fico%3C/div%3E%3C/div%3E%3C/div%3E%3Cdiv%20class=%22link%22%3E%3Cstrong%3EAjuda:%3C/strong%3E%3Cdiv%20class=%22tooltip-link%22%3E%3Ca%20target=%22_blank%22%20href=%22https://docs.cronapp.io/display/CRON2/cronapi.chart.Operations.createChart%22%3Ehttps://docs.cronapp.io/display/CRON2/cronapi.chart.Operations.createChart%3C/a%3E%3C/div%3E%3C/div%3E" type="procedures_arbitrary_callnoreturn">
+        <mutation items="5" name="{{cronapi.chart.Operations.createChart}}">
+          <arg name="Id"/>
+          <arg name="Tipo de gráfico"/>
+          <arg name="Legenda"/>
+          <arg name="Opções"/>
+          <arg name="Série(s) do gráfico"/>
+        </mutation>
+        <value name="ARG0">
+          <block colour="#934848" dependencyby="Anb:u5+^,0vLkL9QIqn5" id="Q+X)(@_E1JB,_~9eOj*P" origintype="ids_from_screen" output="true" type="ids_from_screen">
+            <field name="SELECT">chart3011</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block colour="#a26b21" dependencyby="Anb:u5+^,0vLkL9QIqn5" id="$g*(_k%Urqqh5sn-K{Uu" origintype="util_dropdown" output="true" type="util_dropdown">
+            <mutation>
+              <arg name="line" value="line"/>
+              <arg name="bar" value="bar"/>
+              <arg name="doughnut" value="doughnut"/>
+              <arg name="pie" value="pie"/>
+              <arg name="polarArea" value="Área polar"/>
+            </mutation>
+            <field name="SELECT">line</field>
+          </block>
+        </value>
+        <value name="ARG2">
+          <block colour="#5ba593" dependencyby="Anb:u5+^,0vLkL9QIqn5" id="zBNpL}1q^J_vs:.HqkDr" origintype="text" output="true" tooltip="function () { [native code] }" type="text">
+            <field name="TEXT"/>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</blockly>
