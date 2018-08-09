@@ -1,4 +1,3 @@
-
 <ion-view view-title="Teste 4"> 
   <ion-content data-content="true" data-replace="true"> 
     <div class="component-holder ng-binding ng-scope" data-component="crn-list" id="crn-list-1038516"> 
@@ -8,11 +7,18 @@
              dasfdsafsadf dsaf dsa fdsafs 
           </ion-item> 
         </div> 
-        <div class="component-holder ng-binding ng-scope" data-component="crn-list" id="crn-list-999379"> 
-          <div crn-datasource=""> 
-             
-          </div> 
-        </div> 
+        <div class="component-holder ng-binding ng-scope" data-component="crn-datasource" id="crn-datasource-796314"> 
+          <datasource name="Cliente" entity="api/cronapi/crud/app.entity.Cliente" keys="id" rows-per-page="100" on-before-create="" on-after-create="" on-before-update="" on-after-update="" on-before-delete="" on-after-delete="" on-after-fill="" filter=""></datasource> 
+        </div><label for="dynamic-select-9059" class="item item-input item-select component-holder" data-component="crn-dynamic-select" id="crn-dynamic-select-95749"> 
+	<span class="input-label">Label</span> 
+	<select ng-model="Cliente.active.municipio" crn-datasource="Cliente" class="form-control" id="dynamic-select-9059" name="dynamic-select-9059" ng-options="opt as opt.nome for opt in datasource.data track by opt.nome"> 
+	    <option value="">None</option> 
+	</select> 
+</label>
+        
+        
+         
+
       </div> 
     </div> 
   </ion-content> 
