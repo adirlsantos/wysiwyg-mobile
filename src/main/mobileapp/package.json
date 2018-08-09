@@ -27,8 +27,6 @@
             "cordova-plugin-cronapp": {},
             "cordova-plugin-whitelist": {}
         },
-        "platforms": [
-            "android"
-        ]
+        "platforms": []
     }
 }
