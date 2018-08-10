@@ -688,7 +688,8 @@
         "id:java.lang.String",
         "nome:java.lang.String",
         "foto:Image Upload (to Database)",
-        "municipio:Municipio"
+        "municipio:Municipio",
+        "ativo:java.lang.Boolean"
       ],
       "methods": [],
       "position": {
@@ -697,7 +698,7 @@
       },
       "size": {
         "width": 237.703125,
-        "height": 129.95641326904297
+        "height": 140.8311004638672
       },
       "angle": 0,
       "multitenantContextJsonIgnore": "false",
@@ -787,15 +788,42 @@
           "name": "municipio",
           "type": "Municipio",
           "dbName": "fk_municipio",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
+          "isInsertable": true,
+          "isUpdatable": true,
+          "isEncryption": false,
+          "referencedColumnName": "",
+          "isSearchable": false
+        },
+        {
+          "name": "ativo",
+          "type": "java.lang.Boolean",
+          "dbName": "ativo",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
+          "label": "Ativo",
+          "mask": "",
+          "isPrimaryKey": false,
+          "isUniqueKey": false,
+          "isNullable": true,
+          "pkType": "",
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -815,12 +843,12 @@
           "transform": "translate(0,0)"
         },
         ".uml-class-attrs-rect": {
-          "height": 110,
+          "height": 130,
           "transform": "translate(0,50)"
         },
         ".uml-class-methods-rect": {
           "height": 30,
-          "transform": "translate(0,160)"
+          "transform": "translate(0,180)"
         },
         ".uml-class-name-text": {
           "fill": "#000",
@@ -830,12 +858,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\nnome\nfoto\nmunicipio\n"
+          "text": "id\nnome\nfoto\nmunicipio\nativo\n"
         },
         ".uml-class-attrs-value": {
           "ref-x": 81.609375,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.String\nImage Upload (to Database)\nMunicipio\n"
+          "text": "java.lang.String\njava.lang.String\nImage Upload (to Database)\nMunicipio\njava.lang.Boolean\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",

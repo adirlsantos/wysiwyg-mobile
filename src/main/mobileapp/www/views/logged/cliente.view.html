@@ -11,11 +11,11 @@
     <div ng-hide="Cliente.inserting || Cliente.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-general" class="">
       <label class="item item-input" id="cloud-search1">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" ng-model="vars.search" cronapp-filter="nome;" cronapp-filter-operator="" cronapp-filter-autopost="true" crn-datasource="Cliente" value="" placeholder="{{'template.crud.search' | translate}}">
+        <input type="text"  ng-model="vars.search" cronapp-filter="nome;" cronapp-filter-operator="" cronapp-filter-autopost="true" crn-datasource="Cliente" value="" placeholder="{{'template.crud.search' | translate}}">
       </label>
     </div>   
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854">
-      <datasource name="Cliente" entity="api/cronapi/crud/app.entity.Cliente" keys="id" rows-per-page="10" delete-message="Deseja remover?" class=""></datasource>
+      <datasource  name="Cliente" entity="api/cronapi/crud/app.entity.Cliente" keys="id" rows-per-page="10" delete-message="Deseja remover?" class=""></datasource>
     </div>
     <div crn-datasource="Cliente" class="" ng-hide="Cliente.editing || Cliente.inserting">
       <ion-list can-swipe="listCanSwipe">
@@ -42,7 +42,13 @@
             <!-- nome begin -->
             <label for="textinput-nome" class="item item-input item-stacked-label">
             <span class="input-label">Nome</span>
-            <input type="text" placeholder="Nome" ng-model="Cliente.active.nome" id="textinput-nome" name="textinput-nome">
+            <input
+            type="text"
+            placeholder="Nome"
+            ng-model="Cliente.active.nome"
+            id="textinput-nome"
+            name="textinput-nome"
+            >
             </label>
             <!-- foto begin -->
             <div class="component-holder ng-binding ng-scope" data-component="crn-dynamic-image">
@@ -56,23 +62,37 @@
               </div>
             </div>
             <!-- municipio begin -->
-            <datasource name="Municipio" entity="api/cronapi/crud/app.entity.Municipio" keys="id" class=""></datasource><label class="item item-input item-select component-holder" data-component="crn-dynamic-select" id="crn-dynamic-select-514788"> 
-	<span class="input-label">Municipio</span> 
-	<select ng-model="Cliente.active.municipio" crn-datasource="Municipio" class="form-control" id="dynamic-select-7889" name="dynamic-select-7889" ng-options="opt as opt.nome for opt in datasource.data track by opt.nome"> 
-	    <option value="">None</option> 
-	</select> 
-</label>
-            
+            <datasource name="Municipio" entity="api/cronapi/crud/app.entity.Municipio" keys="id" class=""></datasource>
+            <label for="textinput-municipio" class="item item-input item-select">
+              <span class="input-label">municipio</span>
+              <select ng-model="Cliente.active.municipio" class="form-control" id="textinput-municipio" name="textinput-municipio" ng-options="opt as opt.nome for opt in Municipio.data track by opt.id" >
+              <option value=''>None</option>
+              </select>
+            </label>
+            <!-- ativo begin -->
+            <div class="item item-toggle">
+              Ativo
+              <label for="textinput-ativo" class="toggle toggle-assertive">
+                <input type="checkbox" ng-model="Cliente.active.ativo" id="textinput-ativo" name="textinput-ativo" >
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </div>
             
             <!-- NtoN  -->
             <datasource name="Empresa" entity="api/cronapi/crud/app.entity.Cliente/{{Cliente.active.id}}/relation:empresa:Empresa" append="false" keys="id" rows-per-page="100" lazy="true" auto-post="true" enabled="{{Cliente.editing || Cliente.inserting}}" dependent-lazy-post="Cliente" dependent-lazy-post-field="cliente"></datasource>
-            <datasource name="AllEmpresa" entity="api/cronapi/crud/app.entity.Empresa" keys="id" rows-per-page="100" enabled="{{Cliente.editing || Cliente.inserting}}"></datasource><label class="item item-input item-select component-holder" data-component="crn-multiselect" id="crn-multiselect-978442"> 
-	<span class="input-label">Empresas</span> 
-	<select multiple="" ng-model="Cliente.data" crn-datasource="Empresa" class="form-control" id="multiselect-4995" name="multiselect-4995" ng-options="opt as opt.nome for opt in datasource.data track by opt.nome"> 
-	    <option value="">None</option> 
-	</select> 
-</label>
-             
+            <datasource name="AllEmpresa" entity="api/cronapi/crud/app.entity.Empresa" keys="id" rows-per-page="100" enabled="{{Cliente.editing || Cliente.inserting}}"></datasource>
+            <label for="multiselect-Empresa" class="item item-input item-select"> 
+              <span>Empresa</span> 
+              <select 
+                ng-model="Empresa.data" 
+                multiple
+                id="multiselect-Empresa" 
+                name="multiselect-Empresa" 
+                ng-options="opt as opt.nome for opt in AllEmpresa.data track by opt.nome">
+              </select> 
+            </label> 
             <!-- NtoN  end-->
 
           </div>

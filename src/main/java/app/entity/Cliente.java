@@ -56,6 +56,13 @@ public class Cliente implements Serializable {
   private Municipio municipio;
 
   /**
+  * @generated
+  */
+  @Column(name = "ativo", nullable = true, unique = false, insertable=true, updatable=true)
+  
+  private java.lang.Boolean ativo;
+
+  /**
    * Construtor
    * @generated
    */
@@ -140,6 +147,26 @@ public class Cliente implements Serializable {
    */
   public Cliente setMunicipio(Municipio municipio){
     this.municipio = municipio;
+    return this;
+  }
+
+  /**
+   * Obtém ativo
+   * return ativo
+   * @generated
+   */
+  
+  public java.lang.Boolean getAtivo(){
+    return this.ativo;
+  }
+
+  /**
+   * Define ativo
+   * @param ativo ativo
+   * @generated
+   */
+  public Cliente setAtivo(java.lang.Boolean ativo){
+    this.ativo = ativo;
     return this;
   }
 
