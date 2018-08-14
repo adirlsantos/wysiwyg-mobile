@@ -1,29 +1,29 @@
 {
-	"name": "cronapp-rad-project-mobile-cordova",
-	"homepage": "http://www.techne.com.br",
-	"authors": [
-		"CronosPaas"
-	],
-	"description": "cronapp-rad-project-mobile-cordova",
-	"main": "",
-	"keywords": [
-		"cordova",
-		"mobile",
-		"angularjs"
-	],
-	"license": "MIT",
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"plugins/",
-		"test",
-		"tests",
-		"package.json",
-		"src"
-	],
-	"dependencies": {
-		"cronapp-framework-mobile-js": "57cde9b89a6e59c1e5f8afadaf9df14c73579481",
-		"cronapi-js": "32e2d897630bf1c6a6afa1c144b35c01d4d6cc61"
-	}
+  "name": "cronapp-rad-project-mobile-cordova",
+  "homepage": "http://www.techne.com.br",
+  "authors": [
+    "CronosPaas"
+  ],
+  "description": "cronapp-rad-project-mobile-cordova",
+  "main": "",
+  "keywords": [
+    "cordova",
+    "mobile",
+    "angularjs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "plugins/",
+    "test",
+    "tests",
+    "package.json",
+    "src"
+  ],
+  "dependencies": {
+    "cronapp-framework-mobile-js": "262044e62c458072e5fc1acd150c23614409f73f",
+    "cronapi-js": "953d57b04ab2e77f32d88163ae8d6b932804d66e"
+  }
 }

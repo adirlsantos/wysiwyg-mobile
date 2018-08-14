@@ -1,3 +1,30 @@
 <ion-view view-title="Empty"> 
-	<ion-content data-content="true" data-replace="true">&nbsp;</ion-content>
-</ion-view><div class="component-holder ng-binding ng-scope" data-component="crn-datasource" id="crn-datasource-669881"><datasource name="Cliente" entity="app.Cliente" keys="id" rows-per-page="100" on-before-create="" on-after-create="" on-before-update="" on-after-update="" on-before-delete="" on-after-delete="" on-after-fill="" schema="[{&quot;name&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;nullable&quot;:false,&quot;key&quot;:true},{&quot;name&quot;:&quot;nome&quot;,&quot;type&quot;:&quot;String&quot;,&quot;nullable&quot;:true,&quot;key&quot;:false},{&quot;name&quot;:&quot;foto&quot;,&quot;type&quot;:&quot;Binary&quot;,&quot;nullable&quot;:true,&quot;key&quot;:false},{&quot;name&quot;:&quot;municipio&quot;,&quot;type&quot;:&quot;String&quot;,&quot;nullable&quot;:true,&quot;key&quot;:false},{&quot;name&quot;:&quot;municipio_nome&quot;,&quot;type&quot;:&quot;String&quot;,&quot;nullable&quot;:true,&quot;key&quot;:false}]"></datasource></div>
+  <ion-content data-content="true" data-replace="true">
+    &nbsp;
+  </ion-content> 
+  <div class="component-holder ng-binding ng-scope" data-component="crn-datasource" id="crn-datasource-669881"> 
+    <datasource name="Cliente" entity="app.Cliente" keys="id" rows-per-page="100" on-before-create="" on-after-create="" on-before-update="" on-after-update="" on-before-delete="" on-after-delete="" on-after-fill="" schema="[{&quot;name&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;nullable&quot;:false,&quot;key&quot;:true},{&quot;name&quot;:&quot;nome&quot;,&quot;type&quot;:&quot;String&quot;,&quot;nullable&quot;:true,&quot;key&quot;:false},{&quot;name&quot;:&quot;foto&quot;,&quot;type&quot;:&quot;Binary&quot;,&quot;nullable&quot;:true,&quot;key&quot;:false},{&quot;name&quot;:&quot;municipio&quot;,&quot;type&quot;:&quot;String&quot;,&quot;nullable&quot;:true,&quot;key&quot;:false},{&quot;name&quot;:&quot;municipio_nome&quot;,&quot;type&quot;:&quot;String&quot;,&quot;nullable&quot;:true,&quot;key&quot;:false}]"></datasource>
+  </div> 
+    
+    <div class="component-holder ng-binding ng-scope" data-component="crn-list-swipe" id="crn-list-swipe-233554" crn-datasource="Cliente"> 
+      <ion-list can-swipe="listCanSwipe" class="listCanSwipe"> 
+        <ion-item class="item"> 
+          <div class="row"> 
+            <div class="col">
+               Item 
+            </div> 
+            <div id="crn-item-options-531" class="component-holder" data-component="crn-item-options"> 
+              <div class="crn-item-options" data-item="true"> 
+                <ion-option-button class="button-positive button active"> 
+                  <i class="icon ion-edit">edit</i> 
+                </ion-option-button>
+                <ion-option-button class="button-assertive button"> 
+                  <i class="icon ion-trash-a">delete</i> 
+                </ion-option-button> 
+              </div> 
+            </div> 
+          </div> 
+        </ion-item> 
+      </ion-list> 
+    </div> 
+</ion-view>

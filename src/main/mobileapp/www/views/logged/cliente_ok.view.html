@@ -37,7 +37,11 @@
         <fieldset ng-disabled="!Cliente.editing &amp;&amp; !Cliente.inserting"> 
           <div class="list"> 
             <!-- nome begin --> 
-            <label for="textinput-nome" class="item item-input item-stacked-label"> <span class="input-label">Nome</span> <input type="text" placeholder="Nome" ng-model="Cliente.active.nome" id="textinput-nome" name="textinput-nome"> </label> 
+            <label for="textinput-nome" class="item item-input item-stacked-label"> 
+                <span class="input-label">Nome</span> 
+                <input type="text" placeholder="Nome" ng-model="Cliente.active.nome" id="textinput-nome" name="textinput-nome"> 
+            </label> 
+            
             <!-- foto begin --> 
             <div class="component-holder ng-binding ng-scope" data-component="crn-dynamic-image"> 
               <div class="item item-input item-stacked-label"> 
@@ -49,10 +53,18 @@
                 </div> 
               </div> 
             </div> 
+            
             <!-- municipio begin --> 
             <datasource name="Municipio" entity="api/cronapi/crud/app.entity.Municipio" keys="id" class=""></datasource>
-            <label class="item item-input item-select component-holder" data-component="crn-dynamic-select" id="crn-dynamic-select-514788"> <span class="input-label">Municipio</span> <select ng-model="Cliente.active.municipio" crn-datasource="Municipio" class="form-control" id="dynamic-select-7889" name="dynamic-select-7889" ng-options="opt as opt.nome for opt in datasource.data track by opt.nome"> <option value="">None</option> </select> </label> 
-            <!-- NtoN  --> 
+            <label class="item item-input item-select component-holder" data-component="crn-dynamic-select" id="crn-dynamic-select-514788"> 
+                <span class="input-label">Municipio</span> 
+                <select ng-model="Cliente.active.municipio" crn-datasource="Municipio" class="form-control" id="dynamic-select-7889" name="dynamic-select-7889" 
+                    ng-options="opt as opt.nome for opt in datasource.data track by opt.nome"> 
+                    <option value="">None</option> 
+                </select> 
+            </label> 
+            
+            <!-- Empresa  --> 
             <datasource name="Empresa" entity="api/cronapi/crud/app.entity.Cliente/{{Cliente.active.id}}/relation:empresa:Empresa" append="false" keys="id" rows-per-page="100" lazy="true" auto-post="true" enabled="{{Cliente.editing || Cliente.inserting}}" dependent-lazy-post="Cliente" dependent-lazy-post-field="cliente"></datasource> 
             <datasource name="AllEmpresa" entity="api/cronapi/crud/app.entity.Empresa" keys="id" rows-per-page="100" enabled="{{Cliente.editing || Cliente.inserting}}"></datasource>
             <label class="item item-input item-select component-holder" data-component="crn-multiselect" id="crn-multiselect-978442"> 
@@ -60,8 +72,21 @@
                 <select multiple="" ng-model="Empresa.data" crn-datasource="AllEmpresa" class="form-control" id="multiselect-4995" name="multiselect-4995" ng-options="opt as opt.nome for opt in datasource.data track by opt.nome"> 
                     <option value="">None</option> 
                 </select> 
-            </label> 
+            </label>
             <!-- NtoN  end--> 
+            
+            <!-- Situação -->
+            <div class="component-holder ng-binding ng-scope" data-component="crn-toggle" id="crn-toggle-855574">
+                <label class="item item-toggle">
+                    <span>Ativo</span>
+                    <div class="toggle toggle-assertive">
+                        <input type="checkbox" ng-model="Cliente.active.ativo" style="">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </div>
+                </label>
+            </div> 
           </div> 
         </fieldset> 
       </form> 

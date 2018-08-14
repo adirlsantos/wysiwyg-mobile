@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
+import cronapi.CronapiByteHeaderSignature;
 
 
 /**
@@ -61,6 +62,36 @@ public class Cliente implements Serializable {
   @Column(name = "ativo", nullable = true, unique = false, insertable=true, updatable=true)
   
   private java.lang.Boolean ativo;
+
+  /**
+  * @generated
+  */
+  @Temporal(TemporalType.DATE)
+  @Column(name = "nascimento", nullable = true, unique = false, insertable=true, updatable=true)
+  
+  private java.util.Date nascimento;
+
+  /**
+  * @generated
+  */
+  @Column(name = "credito", nullable = true, unique = false, insertable=true, updatable=true)
+  
+  private java.lang.Double credito;
+
+  /**
+  * @generated
+  */
+  @Column(name = "arquivo", nullable = true, unique = false, insertable=true, updatable=true)
+  @CronapiByteHeaderSignature
+  
+  private byte[] arquivo;
+
+  /**
+  * @generated
+  */
+  @Column(name = "revendedor", nullable = true, unique = false, insertable=true, updatable=true)
+  
+  private java.lang.Boolean revendedor;
 
   /**
    * Construtor
@@ -167,6 +198,86 @@ public class Cliente implements Serializable {
    */
   public Cliente setAtivo(java.lang.Boolean ativo){
     this.ativo = ativo;
+    return this;
+  }
+
+  /**
+   * Obtém nascimento
+   * return nascimento
+   * @generated
+   */
+  
+  public java.util.Date getNascimento(){
+    return this.nascimento;
+  }
+
+  /**
+   * Define nascimento
+   * @param nascimento nascimento
+   * @generated
+   */
+  public Cliente setNascimento(java.util.Date nascimento){
+    this.nascimento = nascimento;
+    return this;
+  }
+
+  /**
+   * Obtém credito
+   * return credito
+   * @generated
+   */
+  
+  public java.lang.Double getCredito(){
+    return this.credito;
+  }
+
+  /**
+   * Define credito
+   * @param credito credito
+   * @generated
+   */
+  public Cliente setCredito(java.lang.Double credito){
+    this.credito = credito;
+    return this;
+  }
+
+  /**
+   * Obtém arquivo
+   * return arquivo
+   * @generated
+   */
+  
+  public byte[] getArquivo(){
+    return this.arquivo;
+  }
+
+  /**
+   * Define arquivo
+   * @param arquivo arquivo
+   * @generated
+   */
+  public Cliente setArquivo(byte[] arquivo){
+    this.arquivo = arquivo;
+    return this;
+  }
+
+  /**
+   * Obtém revendedor
+   * return revendedor
+   * @generated
+   */
+  
+  public java.lang.Boolean getRevendedor(){
+    return this.revendedor;
+  }
+
+  /**
+   * Define revendedor
+   * @param revendedor revendedor
+   * @generated
+   */
+  public Cliente setRevendedor(java.lang.Boolean revendedor){
+    this.revendedor = revendedor;
     return this;
   }
 

@@ -19,8 +19,7 @@ public class BlocoGrafico {
 		return new Callable<Var>() {
 
 			public Var call() throws Exception {
-				cronapi.chart.Operations.createChart(Var.valueOf("chart3011"), Var.valueOf("line"), Var.valueOf(""),
-						Var.VAR_NULL, Var.VAR_NULL);
+				System.out.println(Var.valueOf("Teste teste").getObjectAsString());
 				return Var.VAR_NULL;
 			}
 		}.call();

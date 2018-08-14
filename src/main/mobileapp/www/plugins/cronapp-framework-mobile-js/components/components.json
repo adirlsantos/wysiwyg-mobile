@@ -4,6 +4,9 @@
   "components": [
     {
       "name": "crn-datasource",
+      "wrapper": false,
+      "autoWrapper": true,
+      "order": 0,
       "text_pt_BR": "Fonte de dados",
       "text_en_US": "Datasource",
       "class": "adjust-icon mdi mdi-table-large",
@@ -11,14 +14,24 @@
       "properties": {
         "entity": {
           "removable": false,
-          "type": "datasourceList"
+          "global": true
+        },
+        "parameters": {
+          "removable": false,
+          "global": true
+        },
+        "checkrequired": {
+          "removable": false,
+          "type": "logic",
+          "global": true
+        },
+        "lazy": {
+          "removable": false,
+          "type": "logic"
         },
         "keys": {
           "removable": false,
-          "type": "datasourceKeys"
-        },
-        "filter": {
-          "removable": true,
+          "type": "datasourceKeys",
           "global": true
         },
         "on-before-create": {
@@ -61,17 +74,10 @@
           "type": "event",
           "global": true
         },
-        "dependent-by": {
-          "removable": false,
-          "global": true
-        },
         "dependent-lazy-post": {
           "removable": false,
-          "global": true
-        },
-        "dependent-lazy-post-field": {
-          "removable": false,
-          "global": true
+          "global": true,
+          "type": "pageDatasourceObject"
         }
       }
     },
@@ -303,15 +309,77 @@
       "text_en_US": "Toggle",
       "class": "adjust-icon mdi mdi-toggle-switch-off",
       "templateURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/dist/components/templates/toggle.template.html",
-      "handleRules": {
-        "canIncrement": true,
-        "rules": [
-          {
-            "sourceHTML": " <li class=\"item item-toggle\"> Choose Other <label data-component=\"crn-toggle-button\" class=\"toggle toggle-balanced\"> <input type=\"checkbox\"> <div class=\"track\"><div class=\"handle\"></div></div></label></li> ",
-            "targetSelector": ".toggle-group"
-          }
-        ]
-      }
+      "childrenProperties": [
+        {
+          "name": "ng-model",
+          "selector": "input",
+          "type": "text"
+        },
+        {
+          "name": "content",
+          "selector": "span",
+          "type": "content"
+        },
+        {
+          "name": "xattr-theme",
+          "selector": "div:first",
+          "type":"options"
+        }
+      ],
+      "attributesForPreview": [
+        {
+          "name": "xattr-theme",
+          "type": "options",
+          "target": "class",
+          "values": [
+            {
+              "key": "toggle-assertive",
+              "value": "Assertive",
+              "color": "#ef473a"
+            },
+            {
+              "key": "toggle-balanced",
+              "value": "Balanced",
+              "color": "#33cd5f"
+            },
+            {
+              "key": "toggle-energized",
+              "value": "Energized",
+              "color": "#ffc900"
+            },
+            {
+              "key": "toggle-light",
+              "value": "Light",
+              "color": "#fff"
+            },
+            {
+              "key": "toggle-stable",
+              "value": "Stable",
+              "color": "#f8f8f8"
+            },
+            {
+              "key": "toggle-calm",
+              "value": "Calm",
+              "color": "#11c1f3"
+            },
+            {
+              "key": "toggle-positive",
+              "value": "Positive",
+              "color": "#387ef5"
+            },
+            {
+              "key": "toggle-royal",
+              "value": "Royal",
+              "color": "#886aea"
+            },
+            {
+              "key": "toggle-dark",
+              "value": "Dark",
+              "color": "#444"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "crn-list",
@@ -410,7 +478,7 @@
         }
       ]
     },
-    {
+	{
       "name": "crn-select",
       "text_pt_BR": "Caixa de seleção",
       "text_en_US": "Combobox",
@@ -421,25 +489,16 @@
         {
           "name": "ng-model",
           "selector": "select",
-          "displayName_pt_BR": "Campo",
-          "displayName_en_US": "Field",
           "type": "allDatasourceFields",
           "onSave": "javascript:function() {var result = arguments[0]; if (result.indexOf('.') == -1 && result.trim().length > 0 ) { result = 'vars.'+result;  }  return result; }",
           "onDisplay": "javascript:function() { return arguments[0].replace('vars.',''); }"
-        }
-      ],
-      "groupedChildren": [
+        },
         {
-          "text_pt_BR": "Rótulo",
-          "text_en_US": "Label",
-          "selector": "div"
+          "name": "content",
+          "selector": "div",
+          "type": "content"
         }
       ],
-      "properties": {
-        "onclick": {
-          "type": "event"
-        }
-      },
       "handleRules": {
         "canIncrement": true,
         "rules": [
@@ -467,7 +526,7 @@
         ]
       }
     },
-    {
+	{
       "name": "crn-dynamic-select",
       "text_pt_BR": "Caixa de seleção Dinâmica",
       "text_en_US": "Dynamic Combobox",
@@ -475,6 +534,11 @@
       "wrapper": false,
       "templateURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/dist/components/templates/dynamic-combobox.template.html",
       "childrenProperties": [
+        {
+          "name": "content",
+          "selector": "span",
+          "type":"content"
+        },
         {
           "name": "crn-datasource",
           "selector": "select",
@@ -502,16 +566,9 @@
           "onSave": "javascript:function() {var selected = arguments[0]; return 'opt as opt.' + selected + ' for opt in datasource.data track by opt.' + selected}",
           "onDisplay": "javascript:function() { var selected = arguments[0]; var expr = \/(opt\\.)\\w+\/g; var result = selected.match(expr); result = result[0].replace(\/opt\\.\/g, ''); return result;}"
         }
-      ],
-      "groupedChildren": [
-        {
-          "text_pt_BR": "Rótulo",
-          "text_en_US": "Label",
-          "selector": "span"
-        }
       ]
     },
-    {
+	{
       "name": "crn-multiselect",
       "text_pt_BR": "Seleção Multipla",
       "text_en_US": "Multiselect",
@@ -560,7 +617,8 @@
       "text_pt_BR": "Área de texto",
       "text_en_US": "Textarea",
       "class": "adjust-icon mdi mdi-textbox",
-      "template": "<div class=\"\"><textarea id=\"textArea${RANDOM}\" ng-model=\"vars.textarea${RANDOM}\" maxlength=\"300\" style=\"resize:none;\" resize=\"none\"class=\"col item item-input\" rows=\"5\" placeholder=\"Textarea component\"></textarea></div>",
+      "wrapper":false,
+      "template": "<textarea id=\"textArea${RANDOM}\" ng-model=\"vars.textarea${RANDOM}\" maxlength=\"300\" style=\"resize:none;\" resize=\"none\"class=\"col item item-input\" rows=\"5\" placeholder=\"Textarea component\"></textarea>",
       "properties": {
         "ng-model": {
           "onSave": "javascript:function() { var result = arguments[0]; if (result.indexOf('.') == -1) { result = 'vars.'+result;  }  return result; }",
@@ -570,13 +628,6 @@
       "rows": {
         "displayName": "rows"
       },
-      "groupedChildren": [
-        {
-          "text_pt_BR": "Campo",
-          "text_en_US": "Field",
-          "selector": "textarea"
-        }
-      ],
       "attributesForPreview": [
         {
           "name": "resize",
@@ -661,13 +712,116 @@
           "name": "placeholder",
           "selector": "input[placeholder]",
           "displayName_pt_BR": "Sugestão",
-          "displayName_en_US": "Placeholder"
+          "displayName_en_US": "Placeholder",
+          "type":"text"
         },
         {
           "name": "ng-model",
           "selector": "input[ng-model]",
           "displayName_pt_BR": "Campo",
-          "displayName_en_US": "Field"
+          "displayName_en_US": "Field",
+          "type":"text"
+        },
+        {
+          "name": "type",
+          "selector": "input[type]",
+          "type":"inputType"
+        }
+      ]
+    },
+    {
+      "name": "crn-input-floating",
+      "text_pt_BR": "Entrada de texto flutuante",
+      "text_en_US": "Float input",
+      "class": "adjust-icon mdi mdi-label-outline",
+      "wrapper": false,
+      "templateURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/dist/components/templates/floattextinput.template.html",
+      "childrenProperties": [
+        {
+          "name": "content",
+          "selector": "span",
+          "type": "content",
+          "displayName_pt_BR": "Rótulo",
+          "displayName_en_US": "Label"
+        },
+        {
+          "name": "placeholder",
+          "selector": "input[placeholder]",
+          "type":"text"
+        },
+        {
+          "name": "ng-model",
+          "selector": "input[ng-model]",
+          "type":"text"
+        },
+        {
+          "name": "type",
+          "selector": "input[type]",
+          "type":"inputType"
+        }
+      ]
+    },
+    {
+      "name": "crn-input-inline",
+      "text_pt_BR": "Entrada de texto em linha",
+      "text_en_US": "Inline input",
+      "class": "adjust-icon mdi mdi-label-outline",
+      "wrapper": false,
+      "templateURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/dist/components/templates/inlinetextinput.template.html",
+      "childrenProperties": [
+        {
+          "name": "content",
+          "selector": "span",
+          "type": "content",
+          "displayName_pt_BR": "Rótulo",
+          "displayName_en_US": "Label"
+        },
+        {
+          "name": "placeholder",
+          "selector": "input[placeholder]",
+          "type":"text"
+        },
+        {
+          "name": "ng-model",
+          "selector": "input[ng-model]",
+          "type":"text"
+        },
+        {
+          "name": "type",
+          "selector": "input[type]",
+          "type":"inputType"
+        }
+      ]
+    },
+    {
+      "name": "crn-input-icon",
+      "text_pt_BR": "Entrada de texto com ícone",
+      "text_en_US": "Icon input",
+      "class": "adjust-icon mdi mdi-label-outline",
+      "wrapper": false,
+      "templateURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/dist/components/templates/icontextinput.template.html",
+      "childrenProperties": [
+        {
+          "name": "class",
+          "displayName_pt_BR": "Ícone",
+          "displayName_en_US": "Icon",
+          "selector": "i",
+          "type": "icon"
+        },
+        {
+          "name": "placeholder",
+          "selector": "input[placeholder]",
+          "type": "text"
+        },
+        {
+          "name": "ng-model",
+          "selector": "input[ng-model]",
+          "type": "text"
+        },
+        {
+          "name": "type",
+          "selector": "input[type]",
+          "type":"inputType"
         }
       ]
     },
@@ -719,15 +873,18 @@
       "class": "adjust-icon mdi mdi-checkbox-marked-outline",
       "wrapper": true,
       "templateURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/dist/components/templates/checkbox.template.html",
-      "handleRules": {
-        "canIncrement": true,
-        "rules": [
-          {
-            "sourceHTML": "<li class=\"item item-checkbox\"><label class=\"checkbox\"><input type=\"checkbox\" checked=\"\"></label> Choose Other</li>",
-            "targetSelector": ".list, .checkbox-group"
-          }
-        ]
-      }
+      "childrenProperties":[
+        {
+          "name": "ng-model",
+          "selector": "input",
+          "type":"text"
+        },
+        {
+          "name": "content",
+          "selector": "span",
+          "type":"content"
+        }
+      ]
     },
     {
       "name": "crn-spacer",
@@ -877,7 +1034,13 @@
       "text_en_US": "Card",
       "class": "adjust-icon mdi mdi-crop-square",
       "wrapper": false,
-      "templateURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/dist/components/templates/card.template.html"
+      "templateURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/dist/components/templates/card.template.html",
+      "childrenProperties":[
+        {
+          "name":"content",
+          "selector":"div",
+          "type":"content"
+        }]
     },
     {
       "name": "crn-container",
@@ -1045,7 +1208,18 @@
       "text_pt_BR": "Lista com swipe",
       "text_en_US": "List Swipe",
       "class": "adjust-icon mdi mdi-ray-end-arrow",
+      "forcedGroup": true,
       "templateURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/dist/components/templates/list.swipe.template.html",
+      "childrenProperties": [
+        {
+          "name": "crn-datasource",
+          "selector": "ion-list",
+          "displayName_pt_BR": "Fonte de dados",
+          "displayName_en_US": "Datasource",
+          "type":"pageDatasource",
+          "onDisplay": "javascript:function() { return arguments[0].replace('vars.',''); }"
+        }
+      ],
       "properties": {
         "onclick": {
           "type": "event"
@@ -1055,8 +1229,8 @@
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<ion-item class=\"item\"> <div class=\"row\"> <div class=\"col\" > Item </div> </div> <div class=\"component-holder\" data-component=\"crn-item-options\"> <div class=\"crn-item-options\" data-item=\"true\"> <ion-option-button class=\"button-assertive button\"> <i class=\"icon ion-trash-a\">delete</i></ion-option-button><ion-option-button class=\"button-positive button\"> <i class=\"icon ion-edit\">edit</i> </ion-option-button> </div> </div> </ion-item>",
-            "targetSelector": ".listCanSwipe"
+            "sourceHTML": "<div class=\"col\">New Item</div>",
+            "targetSelector": ".row"
           }
         ]
       }
@@ -1094,6 +1268,7 @@
         {
           "name": "xattr-size",
           "type": "options",
+          "selector": "div",
           "target": "class",
           "values": [
             {
@@ -1212,6 +1387,20 @@
           "text_en_US": "Icon",
           "selector": "i"
         }
+      ],
+      "childrenProperties": [
+        {
+          "name": "class",
+          "selector": "i",
+          "displayName_pt_BR":"Ícone",
+          "displayName_en_US":"Icon",
+          "type": "icon"
+        },
+        {
+          "name": "content",
+          "selector": "span",
+          "type": "content"
+        }
       ]
     },
     {
@@ -1262,7 +1451,14 @@
       "text": "Option Button",
       "pallete": false,
       "class": "adjust-icon mdi mdi-stop",
-      "template": "<ion-option-button class=\"button-positive button\"><i class=\"icon ion-home\">home</i></ion-option-button>"
+      "template": "<ion-option-button class=\"button-positive button\"><i class=\"icon ion-home\">home</i></ion-option-button>",
+      "groupedChildren": [
+        {
+          "text_pt_BR": "Ícone",
+          "text_en_US": "Icon",
+          "selector": "i"
+        }
+      ]
     },
     {
       "name": "crn-ion-nav-buttons",
@@ -1331,92 +1527,28 @@
       "templateURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/dist/components/templates/form.template.html"
     },
     {
-      "name": "crn-toggle-button",
-      "text": "Toggle Button",
-      "class": "adjust-icon mdi mdi-toggle-switch-off",
-      "pallete": false,
-      "wrapper": false,
-      "template": "<label class=\"toggle toggle-balanced\" xattr-theme=\"toggle-balanced\"><input type=\"checkbox\" checked><div class=\"track\"><div class=\"handle\"></div> </div> </label>",
-      "properties": {
-        "xattr-theme": {
-          "displayName": "Theme"
-        }
-      },
-      "attributesForPreview": [
-        {
-          "name": "xattr-theme",
-          "type": "options",
-          "target": "class",
-          "values": [
-            {
-              "key": "toggle-assertive",
-              "value": "Assertive",
-              "color": "#ef473a"
-            },
-            {
-              "key": "toggle-balanced",
-              "value": "Balanced",
-              "color": "#33cd5f"
-            },
-            {
-              "key": "toggle-energized",
-              "value": "Energized",
-              "color": "#ffc900"
-            },
-            {
-              "key": "toggle-light",
-              "value": "Light",
-              "color": "#fff"
-            },
-            {
-              "key": "toggle-stable",
-              "value": "Stable",
-              "color": "#f8f8f8"
-            },
-            {
-              "key": "toggle-calm",
-              "value": "Calm",
-              "color": "#11c1f3"
-            },
-            {
-              "key": "toggle-positive",
-              "value": "Positive",
-              "color": "#387ef5"
-            },
-            {
-              "key": "toggle-royal",
-              "value": "Royal",
-              "color": "#886aea"
-            },
-            {
-              "key": "toggle-dark",
-              "value": "Dark",
-              "color": "#444"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name": "crn-input-button",
-      "text_pt_BR": "Caixa de texto com botão",
+      "text_pt_BR": "Entrada de texto com botão",
       "text_en_US": "Input Button",
       "class": "adjust-icon mdi mdi-label-outline",
       "wrapper": false,
       "forcedGroup": true,
-      "template": "<div data class=\"item item-input-inset\"><label class=\"item-input-wrapper\"><input type=\"text\" placeholder=\"Placeholder Text\" ng-model=\"vars.inputButton${RANDOM}\" mask></label><button class=\"button component-holder button-small button-balanced button-clear\" type=\"submit\" ng-click=\"\" data-component=\"crn-button\" id=\"crn-button-${RANDOM}\" xattr-size=\"button-small\" xattr-type=\"button-clear\" xattr-theme=\"button-balanced\"> <span>Search</span></button></div>",
+      "template": "<div data class=\"item item-input-inset\"><label class=\"item-input-wrapper\"><input type=\"text\" placeholder=\"Placeholder Text\" ng-model=\"vars.inputButton${RANDOM}\" mask></label><button class=\"button component-holder button-small button-outline button-balanced\" type=\"submit\" ng-click=\"\" data-component=\"crn-button\" id=\"crn-button${RANDOM}\" xattr-type=\"button-outline\" xattr-size=\"button-small\" xattr-theme=\"button-balanced\"><i class=\"ion ion-ios-search\"></i> <span>Search</span></button></div>",
       "childrenProperties": [
         {
           "name": "placeholder",
           "selector": "input[placeholder]",
-          "displayName_pt_BR": "Sugestão",
-          "displayName_en_US": "Placeholder"
+          "type":"text"
         },
         {
           "name": "ng-model",
           "selector": "input[ng-model]",
-          "displayName_pt_BR": "Campo",
-          "displayName_en_US": "Field"
+          "type":"text"
+        },
+        {
+          "name": "type",
+          "selector": "input[type]",
+          "type":"inputType"
         }
       ],
       "groupedChildren": [
@@ -1433,11 +1565,14 @@
       "text_en_US": "Evaluation",
       "class": "adjust-icon mdi mdi-star-outline",
       "wrapper": false,
+      "designTimeDynamic": true,
+      "designTimeHTMLURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/components/templates/evaluation.designtime.html",
+      "designTimeSelector": ":self",
       "templateURL": "src/main/mobileapp/www/plugins/cronapp-framework-mobile-js/dist/components/templates/evaluation.template.html",
       "properties": {
         "ng-model": {
-          "onSave": "javascript:function() { var result = arguments[0]; if (result.indexOf('.') == -1 && result.trim().length > 0 ) { result = 'vars.'+result;  }  return result; }",
-          "onDisplay": "javascript:function() { return arguments[0].replace('vars.',''); }"
+          "onSave": "javascript:function() { var result \u003d arguments[0]; if (result.indexOf(\u0027.\u0027) \u003d\u003d -1 \u0026\u0026 result.trim().length \u003e 0 ) { result \u003d \u0027vars.\u0027+result;  }  return result; }",
+          "onDisplay": "javascript:function() { return arguments[0].replace(\u0027vars.\u0027,\u0027\u0027); }"
         }
       }
     },
