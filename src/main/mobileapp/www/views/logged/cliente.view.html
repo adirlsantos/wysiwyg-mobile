@@ -14,6 +14,9 @@
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854"> 
       <datasource name="Cliente" entity="api/cronapi/crud/app.entity.Cliente" keys="id" rows-per-page="10" delete-message="Deseja remover?" class=""></datasource> 
     </div> 
+    <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854"> 
+      <datasource name="Municipio" entity="api/cronapi/crud/app.entity.Municipio" keys="id" rows-per-page="10" delete-message="Deseja remover?" class=""></datasource> 
+    </div> 
     <div crn-datasource="Cliente" class="" ng-hide="Cliente.editing || Cliente.inserting"> 
       <ion-list can-swipe="listCanSwipe"> 
         <ion-item ng-repeat="rowData in datasource.data" class="item" ng-click="datasource.startEditing(rowData)"> 
@@ -57,7 +60,7 @@
                     <div class="handle"></div> 
                   </div> 
                 </div> </label> 
-            </div>
+            </div><label class="item item-input item-select component-holder" data-component="crn-dynamic-select" id="crn-dynamic-select-100065"><span class="input-label">Municipio</span><select ng-model="Cliente.active.municipio" crn-datasource="Municipio" class="form-control" id="dynamic-select-8374" name="dynamic-select-8374" ng-options="opt as opt.nome for opt in datasource.data track by opt.nome"><option value="">None</option></select></label>
             <div class="list radio-group component-holder" ng-model="Cliente.active.credito" data-component="crn-radio" id="crn-radio-134038">
               <div class="item item-divider ng-binding">
                 Faixa de Crédito

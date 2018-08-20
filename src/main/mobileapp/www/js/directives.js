@@ -653,9 +653,7 @@
     const TEMPLATE = '\
                <ion-list can-swipe="listCanSwipe"> \
             	   <ion-item class="item" ng-repeat="rowData in datasource"> \
-              	   <div class="item-avatar"> \
-                	   <img src="img/nophoto.png">  \
-              	   </div>  \
+              	   <div class="item-avatar"></div>  \
               	 </ion-item>  \
                </ion-list>\
                ';
@@ -677,68 +675,79 @@
     }
     
     var addDefaultButton = function(column) {
-      var btnEditTemplate = '<ion-option-button class="button-positive"><i class="icon ion-edit"></i></ion-option-button>';
-      var btnDeleteTemplate = '<ion-option-button class="button-assertive"><i class="icon ion-trash-a"></i></ion-option-button>';
+      const EDIT_TEMPLATE = '<ion-option-button class="button-positive" ng-click="datasource.startEditing(rowData)"><i class="icon ion-edit"></i></ion-option-button>';
+      const DELETE_TEMPLATE = '<ion-option-button class="button-assertive" ng-click="datasource.remove(rowData)"><i class="icon ion-trash-a"></i></ion-option-button>';
       
       if (column.command == 'edit|destroy') {
-        return btnEditTemplate.concat(btnDeleteTemplate);
+        return EDIT_TEMPLATE.concat(DELETE_TEMPLATE);
       } else if (column.command == 'edit') {
-        return btnEditTemplate;
+        return EDIT_TEMPLATE;
       } else if (column.command == 'destroy') {
-        return btnDeleteTemplate;
+        return DELETE_TEMPLATE;
       } 
+    }
+    
+    var addImage = function(column) {
+      const IMAGE_TEMPLATE = '<img src="img/nophoto.png">';
+      return IMAGE_TEMPLATE;
     }
     
     var isImage = function(fieldName, schemaFields) {
       for (let i = 0; i < schemaFields.length; i++) {
         var field = schemaFields[i];
-        if (fieldName == field.name && field.type == 'Binary') {
-          return true;
+        if (fieldName == field.name) {
+          return (field.type == 'Binary');
         }
       }
+      
+      return false;
     }
     
     return {
-        restrict: 'E',
-        // require: '^ngModel',
-        link: function(scope, element, attrs, ngModelCtrl) {
-          var optionsList = {};
-          var dataSourceName = '';
-          var content = '';
-          var buttons = '';
-          try {
-            optionsList = JSON.parse(attrs.options);
-            dataSourceName = optionsList.dataSourceScreen.name;
-            
-            for (let i = 0; i < optionsList.columns.length; i++) {
-              var column = optionsList.columns[i];
-              if (column.field && column.visible && column.dataType == 'Database') {
-                if isImage(column.field, optionsList.dataSourceScreen.entityDataSource.schemaFields) {
-                  content = content.concat(addDefaultColumn(column, (i == 0)));
-                } else {
-                  content = content.concat(addDefaultColumn(column, (i == 0)));
-                }
-              } else if (column.visible && column.dataType == 'Command') {
-                buttons = buttons.concat(addDefaultButton(column));
+      restrict: 'E',
+      // require: '^ngModel',
+      link: function(scope, element, attrs, ngModelCtrl) {
+        var optionsList = {};
+        var dataSourceName = '';
+        var content = '';
+        var buttons = '';
+        var image = '';
+        try {
+          optionsList = JSON.parse(attrs.options);
+          dataSourceName = optionsList.dataSourceScreen.name;
+          
+          var addedImage = false;
+          for (let i = 0; i < optionsList.columns.length; i++) {
+            var column = optionsList.columns[i];
+            if (column.field && column.visible && column.dataType == 'Database') {
+              if (!addedImage && isImage(column.field, optionsList.dataSourceScreen.entityDataSource.schemaFields)) {
+                image = addImage(column);
+                addedImage = true;
+              } else {
+                content = content.concat(addDefaultColumn(column, (i == 0)));
               }
+            } else if (column.visible && column.dataType == 'Command') {
+              buttons = buttons.concat(addDefaultButton(column));
             }
-          } catch(err) {
-            console.log('CronList invalid configuration! ' + err);
           }
-            
-          var templateDyn = $(TEMPLATE);
-          $(element).html(templateDyn);
-          
-          var ionItem = $(element).find('ion-item');
-          ionItem.attr('ng-repeat', getDataSourceName(dataSourceName));
-          
-          var ionAvatar = $(element).find('.item-avatar');
-          ionAvatar.append(content);
-          
-          ionItem.append(buttons);
-          
-          $compile(templateDyn)(element.scope());
+        } catch(err) {
+          console.log('CronList invalid configuration! ' + err);
         }
+          
+        var templateDyn = $(TEMPLATE);
+        $(element).html(templateDyn);
+        
+        var ionItem = $(element).find('ion-item');
+        ionItem.attr('ng-repeat', getDataSourceName(dataSourceName));
+        
+        var ionAvatar = $(element).find('.item-avatar');
+        ionAvatar.append(image);
+        ionAvatar.append(content);
+        
+        ionItem.append(buttons);
+        
+        $compile(templateDyn)(element.scope());
+      }
     }
   }])
 	
