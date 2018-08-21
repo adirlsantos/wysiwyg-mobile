@@ -663,20 +663,20 @@
     }
     
     var addDefaultColumn = function(column, first) {
-      var columnTemplate = '<$tag$>{{rowData.$field$}}</$tag$>'
+      var result = null;
       
       if (first) {
-        columnTemplate = columnTemplate.split('$tag$').join('h2');
+        result = '<h2>{{rowData.' + column.field + '}}</h2>';
       } else {
-        columnTemplate = columnTemplate.split('$tag$').join('p');
+        result = '<p>{{rowData.' + column.field + '}}</p>';
       }
       
-      return columnTemplate.split('$field$').join(column.field)
+      return result;
     }
     
-    var addDefaultButton = function(column) {
-      const EDIT_TEMPLATE = '<ion-option-button class="button-positive" ng-click="datasource.startEditing(rowData)"><i class="icon ion-edit"></i></ion-option-button>';
-      const DELETE_TEMPLATE = '<ion-option-button class="button-assertive" ng-click="datasource.remove(rowData)"><i class="icon ion-trash-a"></i></ion-option-button>';
+    var addDefaultButton = function(dataSourceName, column) {
+      const EDIT_TEMPLATE = '<ion-option-button class="button-positive" ng-click="' + dataSourceName + '.startEditing(rowData)"><i class="icon ion-edit"></i></ion-option-button>';
+      const DELETE_TEMPLATE = '<ion-option-button class="button-assertive" ng-click="' + dataSourceName + '.remove(rowData)"><i class="icon ion-trash-a"></i></ion-option-button>';
       
       if (column.command == 'edit|destroy') {
         return EDIT_TEMPLATE.concat(DELETE_TEMPLATE);
@@ -689,7 +689,54 @@
     
     var addImage = function(column) {
       const IMAGE_TEMPLATE = '<img src="img/nophoto.png">';
+      
       return IMAGE_TEMPLATE;
+    }
+    
+    var encodeHTML = function(value) {
+      return value.replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&apos;');
+    }
+          
+    var generateBlocklyCall = function(blocklyInfo) {
+      var call;
+      if (blocklyInfo.type == "client")  {
+        var splitedClass = blocklyInfo.blocklyClass.split('/');
+        var blocklyName = splitedClass[splitedClass.length-1];
+        call = "blockly.js.blockly." + blocklyName;
+        call += "." +  blocklyInfo.blocklyMethod;
+        var params = "()";
+        if (blocklyInfo.blocklyParams.length > 0) {
+          params = "(";
+          blocklyInfo.blocklyParams.forEach(function(p) {
+            params += (p.value ? encodeHTML(p.value) : "''") + ",";
+          }.bind(this))
+          params = params.substr(0, params.length - 1);
+          params += ")";
+        }
+        call += params;
+      } else if (blocklyInfo.type == "server") {
+        var blocklyName = blocklyInfo.blocklyClass + ':' + blocklyInfo.blocklyMethod;
+        call = "cronapi.util.makeCallServerBlocklyAsync('"+blocklyName+"',null,null,";
+        if (blocklyInfo.blocklyParams.length > 0) {
+          blocklyInfo.blocklyParams.forEach(function(p) {
+            call += (p.value ? encodeHTML(p.value) : "''") + ",";
+          }.bind(this))
+        }
+        call = call.substr(0, call.length - 1);
+        call += ")";
+      }
+      
+      return call;
+    }
+    
+    var addBlockly = function(column) {
+      return '<ion-option-button class="button-positive" ng-click="'
+              + generateBlocklyCall(column.blocklyInfo)
+              + '"><i class="icon ion-edit"></i></ion-option-button>';
     }
     
     var isImage = function(fieldName, schemaFields) {
@@ -705,7 +752,6 @@
     
     return {
       restrict: 'E',
-      // require: '^ngModel',
       link: function(scope, element, attrs, ngModelCtrl) {
         var optionsList = {};
         var dataSourceName = '';
@@ -715,19 +761,26 @@
         try {
           optionsList = JSON.parse(attrs.options);
           dataSourceName = optionsList.dataSourceScreen.name;
-          
+          var isEdit = false;
           var addedImage = false;
-          for (let i = 0; i < optionsList.columns.length; i++) {
+          for (var i = 0; i < optionsList.columns.length; i++) {
             var column = optionsList.columns[i];
-            if (column.field && column.visible && column.dataType == 'Database') {
-              if (!addedImage && isImage(column.field, optionsList.dataSourceScreen.entityDataSource.schemaFields)) {
-                image = addImage(column);
-                addedImage = true;
-              } else {
-                content = content.concat(addDefaultColumn(column, (i == 0)));
+            if (column.visible) {
+              if (column.field && column.dataType == 'Database') {
+                if (!addedImage && isImage(column.field, optionsList.dataSourceScreen.entityDataSource.schemaFields)) {
+                  image = addImage(column);
+                  addedImage = true;
+                } else {
+                  content = content.concat(addDefaultColumn(column, (i == 0)));
+                }
+              } else if (column.dataType == 'Command') {
+                buttons = buttons.concat(addDefaultButton(dataSourceName, column));
+                if (column.command == 'edit') {
+                  isEdit = true;    
+                }
+              } else if (column.dataType == 'Blockly') {
+                buttons = buttons.concat(addBlockly(column));
               }
-            } else if (column.visible && column.dataType == 'Command') {
-              buttons = buttons.concat(addDefaultButton(column));
             }
           }
         } catch(err) {
@@ -743,8 +796,7 @@
         var ionAvatar = $(element).find('.item-avatar');
         ionAvatar.append(image);
         ionAvatar.append(content);
-        
-        ionItem.append(buttons);
+        ionAvatar.append(buttons);
         
         $compile(templateDyn)(element.scope());
       }

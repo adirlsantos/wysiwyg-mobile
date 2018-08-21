@@ -14,13 +14,12 @@
     "test",
     "tests"
   ],
-  "_release": "426296b7bd",
+  "_release": "f99a4d4d89",
   "_resolution": {
     "type": "commit",
-    "commit": "426296b7bd925cb156b5e808df7eeb77382b5f2b"
+    "commit": "f99a4d4d89446cc97eed960127819eef3f5f0579"
   },
   "_source": "https://github.com/technecloud/cronapi-js.git",
-  "_target": "426296b7bd925cb156b5e808df7eeb77382b5f2b",
-  "_originalSource": "https://github.com/technecloud/cronapi-js.git",
-  "_direct": true
+  "_target": "f99a4d4d89446cc97eed960127819eef3f5f0579",
+  "_originalSource": "cronapi-js"
 }

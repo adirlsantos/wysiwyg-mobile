@@ -12,10 +12,11 @@ public class BlocoGrafico {
 
 	/**
 	 *
+	 * @param param
 	 * @return Var
 	 */
 	// BlocoGrafico
-	public static Var Executar() throws Exception {
+	public static Var Executar(Var param) throws Exception {
 		return new Callable<Var>() {
 
 			public Var call() throws Exception {
