@@ -653,9 +653,9 @@
     const TEMPLATE = '\
                <ion-list can-swipe="listCanSwipe"> \
             	   <ion-item class="item" ng-repeat="rowData in datasource"> \
-              	   <div class="item-avatar"></div>  \
-              	 </ion-item>  \
-               </ion-list>\
+              	   <div class="item-avatar"></div> \
+              	 </ion-item> \
+               </ion-list> \
                ';
                
     var getExpression = function(dataSourceName) {
@@ -754,9 +754,9 @@
     }
     
     var addBlockly = function(column) {
-      return '<ion-option-button class="button-positive" ng-click="'
+      return '<ion-option-button class="button-dark" ng-click="'
               + generateBlocklyCall(column.blocklyInfo)
-              + '"><i class="icon ion-edit"></i></ion-option-button>';
+              + '"><i class="icon ion-navigate"></i></ion-option-button>';
     }
     
     var isImage = function(fieldName, schemaFields) {
@@ -770,6 +770,15 @@
       return false;
     }
     
+    var getSearchableList = function(dataSourceName, fieldName) {
+      return '\
+              <label class="item item-input"> <i class="icon ion-search placeholder-icon"></i> \
+                <input type="text" ng-model="vars.__searchableList__" cronapp-filter="'+ fieldName +';" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" \
+                crn-datasource="' + dataSourceName + '" placeholder="{{\'template.crud.search\' | translate}}"> \
+              </label>\
+             ';
+    }
+    
     return {
       restrict: 'E',
       link: function(scope, element, attrs, ngModelCtrl) {
@@ -781,6 +790,7 @@
         try {
           optionsList = JSON.parse(attrs.options);
           dataSourceName = optionsList.dataSourceScreen.name;
+          var searchableField;
           var isNativeEdit = false;
           var addedImage = false;
           for (var i = 0; i < optionsList.columns.length; i++) {
@@ -792,6 +802,9 @@
                   addedImage = true;
                 } else {
                   content = content.concat(addDefaultColumn(column, (i == 0)));
+                  if (!searchableField && column.sortable) {
+                    searchableField = column.field;
+                  }
                 }
               } else if (column.dataType == 'Command') {
                 buttons = buttons.concat(addDefaultButton(dataSourceName, column));
@@ -806,8 +819,13 @@
         } catch(err) {
           console.log('CronList invalid configuration! ' + err);
         }
-          
-        var templateDyn = $(TEMPLATE);
+        
+        var templateDyn = null;
+        if (searchableField) {
+          templateDyn = $(getSearchableList(dataSourceName, searchableField) + TEMPLATE);
+        } else {
+          templateDyn = $(TEMPLATE);
+        }
         $(element).html(templateDyn);
         
         var ionItem = $(element).find('ion-item');
