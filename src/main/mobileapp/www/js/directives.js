@@ -658,24 +658,44 @@
                </ion-list>\
                ';
                
-    var getDataSourceName = function(dataSourceName) {
+    var getExpression = function(dataSourceName) {
       return 'rowData in '.concat(dataSourceName).concat('.data');
+    }
+    
+    var buildFormat = function(column) {
+      var result = '';
+      
+      if (column.format) {
+        result = ' | mask: "' + column.format + '"';
+      } else {
+        switch (column.type) {
+          case 'date' : result = ' | mask: "date"'; break;
+          case 'number':
+          case 'money' : result = ' | mask: "number"'; break;
+        }
+      }
+      
+      return result;
     }
     
     var addDefaultColumn = function(column, first) {
       var result = null;
       
       if (first) {
-        result = '<h2>{{rowData.' + column.field + '}}</h2>';
+        result = '<h2>{{rowData.' + column.field + buildFormat(column) + '}}</h2>';
       } else {
-        result = '<p>{{rowData.' + column.field + '}}</p>';
+        result = '<p>{{rowData.' + column.field + buildFormat(column) + '}}</p>';
       }
       
       return result;
     }
     
+    var getEditCommand = function(dataSourceName) {
+      return dataSourceName + '.startEditing(rowData)';
+    }
+    
     var addDefaultButton = function(dataSourceName, column) {
-      const EDIT_TEMPLATE = '<ion-option-button class="button-positive" ng-click="' + dataSourceName + '.startEditing(rowData)"><i class="icon ion-edit"></i></ion-option-button>';
+      const EDIT_TEMPLATE = '<ion-option-button class="button-positive" ng-click="' + getEditCommand(dataSourceName) + '"><i class="icon ion-edit"></i></ion-option-button>';
       const DELETE_TEMPLATE = '<ion-option-button class="button-assertive" ng-click="' + dataSourceName + '.remove(rowData)"><i class="icon ion-trash-a"></i></ion-option-button>';
       
       if (column.command == 'edit|destroy') {
@@ -761,7 +781,7 @@
         try {
           optionsList = JSON.parse(attrs.options);
           dataSourceName = optionsList.dataSourceScreen.name;
-          var isEdit = false;
+          var isNativeEdit = false;
           var addedImage = false;
           for (var i = 0; i < optionsList.columns.length; i++) {
             var column = optionsList.columns[i];
@@ -776,7 +796,7 @@
               } else if (column.dataType == 'Command') {
                 buttons = buttons.concat(addDefaultButton(dataSourceName, column));
                 if (column.command == 'edit') {
-                  isEdit = true;    
+                  isNativeEdit = true;    
                 }
               } else if (column.dataType == 'Blockly') {
                 buttons = buttons.concat(addBlockly(column));
@@ -791,7 +811,11 @@
         $(element).html(templateDyn);
         
         var ionItem = $(element).find('ion-item');
-        ionItem.attr('ng-repeat', getDataSourceName(dataSourceName));
+        ionItem.attr('ng-repeat', getExpression(dataSourceName));
+        
+        if (isNativeEdit) {
+          ionItem.attr('ng-click', getEditCommand(dataSourceName));
+        }
         
         var ionAvatar = $(element).find('.item-avatar');
         ionAvatar.append(image);
