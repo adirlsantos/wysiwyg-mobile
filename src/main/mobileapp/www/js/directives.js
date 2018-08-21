@@ -106,7 +106,6 @@
           scope: true,
           require: 'ngModel',
           link: function(scope, element, attr) {
-            debugger;
             var required = (attr.ngRequired && attr.ngRequired == "true"?"required":"");
             var content = element.html();
             var templateDyn    =
@@ -656,6 +655,7 @@
               	   <div class="item-avatar"></div> \
               	 </ion-item> \
                </ion-list> \
+               <ion-infinite-scroll on-infinite="Cliente.nextPage()" distance="1%"></ion-infinite-scroll> \
                ';
                
     var getExpression = function(dataSourceName) {
@@ -708,9 +708,7 @@
     }
     
     var addImage = function(column) {
-      const IMAGE_TEMPLATE = '<img src="img/nophoto.png">';
-      
-      return IMAGE_TEMPLATE;
+      return '<img data-ng-src="data:image/png;base64,{{rowData.' + column.field + '}}">';
     }
     
     var encodeHTML = function(value) {
@@ -760,7 +758,7 @@
     }
     
     var isImage = function(fieldName, schemaFields) {
-      for (let i = 0; i < schemaFields.length; i++) {
+      for (var i = 0; i < schemaFields.length; i++) {
         var field = schemaFields[i];
         if (fieldName == field.name) {
           return (field.type == 'Binary');
