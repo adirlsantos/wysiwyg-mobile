@@ -789,7 +789,7 @@
           optionsList = JSON.parse(attrs.options);
           dataSourceName = optionsList.dataSourceScreen.name;
           var dataSource = eval(optionsList.dataSourceScreen.name);
-          var searchableField;
+          var searchableField = null;
           var isNativeEdit = false;
           var addedImage = false;
           for (var i = 0; i < optionsList.columns.length; i++) {
@@ -801,8 +801,8 @@
                   addedImage = true;
                 } else {
                   content = content.concat(addDefaultColumn(column, (i == 0)));
-                  if (!searchableField && column.sortable) {
-                    searchableField = column.field;
+                  if (column.filterable) {
+                    searchableField = (searchableField != null) ? searchableField + ';' + column.field : column.field;
                   }
                 }
               } else if (column.dataType == 'Command') {

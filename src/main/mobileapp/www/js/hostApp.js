@@ -1,1 +1,1 @@
-window.hostApp = 'http://192.168.8.194:10000/';
+window.hostApp = 'http://192.168.8.194:10001/';
