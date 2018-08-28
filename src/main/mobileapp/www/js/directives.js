@@ -655,7 +655,7 @@
               	   <div class="item-avatar"></div> \
               	 </ion-item> \
                </ion-list> \
-               <ion-infinite-scroll on-infinite="Cliente.nextPage()" distance="1%"></ion-infinite-scroll> \
+               <ion-infinite-scroll></ion-infinite-scroll> \
                ';
                
     var getExpression = function(dataSourceName) {
@@ -788,6 +788,7 @@
         try {
           optionsList = JSON.parse(attrs.options);
           dataSourceName = optionsList.dataSourceScreen.name;
+          var dataSource = eval(optionsList.dataSourceScreen.name);
           var searchableField;
           var isNativeEdit = false;
           var addedImage = false;
@@ -837,6 +838,15 @@
         ionAvatar.append(image);
         ionAvatar.append(content);
         ionAvatar.append(buttons);
+        
+        scope.nextPageInfinite = function() {
+          dataSource.nextPage();
+          scope.$broadcast('scroll.infiniteScrollComplete');
+        }
+        
+        var infiniteScroll = $(element).find('ion-infinite-scroll');
+        infiniteScroll.attr('on-infinite', 'nextPageInfinite()');
+        infiniteScroll.attr('distance', '1%');
         
         $compile(templateDyn)(element.scope());
       }

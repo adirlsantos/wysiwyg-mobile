@@ -14,4 +14,58 @@
             <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
         </properties>
     </persistence-unit>
+    <persistence-unit name="cams" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <non-jta-data-source>java:comp/env/jdbc/cams</non-jta-data-source>
+        <class>cams.entity.Viuva</class>
+        <class>cams.entity.Averbacao</class>
+        <class>cams.entity.MotivoAfastamento</class>
+        <class>cams.entity.Empresa</class>
+        <class>cams.entity.TipoDependente</class>
+        <class>cams.entity.SaidaProdutoItem</class>
+        <class>cams.entity.Municipio</class>
+        <class>cams.entity.ExameConsulta</class>
+        <class>cams.entity.Socio</class>
+        <class>cams.entity.ContribuicaoMensal1</class>
+        <class>cams.entity.ExameLaudo</class>
+        <class>cams.entity.FilialBanco</class>
+        <class>cams.entity.Fornecedor</class>
+        <class>cams.entity.Clinica</class>
+        <class>cams.entity.Banco</class>
+        <class>cams.entity.MovimentacaoBancaria</class>
+        <class>cams.entity.GuiaLaboratorial</class>
+        <class>cams.entity.Agencia</class>
+        <class>cams.entity.LayoutTipo</class>
+        <class>cams.entity.Setor</class>
+        <class>cams.entity.ContribuicaoMensal</class>
+        <class>cams.entity.LogRecord</class>
+        <class>cams.entity.GuiaLaboratorialResultado</class>
+        <class>cams.entity.GuiaMedicaExame</class>
+        <class>cams.entity.ContribuicaoMensalViuva</class>
+        <class>cams.entity.AverbacaoValor</class>
+        <class>cams.entity.Filial</class>
+        <class>cams.entity.ClinicaExame</class>
+        <class>cams.entity.Produto</class>
+        <class>cams.entity.ExameFicha</class>
+        <class>cams.entity.LayoutTipoItem</class>
+        <class>cams.entity.ContaCorrente</class>
+        <class>cams.entity.Funcionario</class>
+        <class>cams.entity.EntradaProduto</class>
+        <class>cams.entity.EntradaProdutoItem</class>
+        <class>cams.entity.Layout</class>
+        <class>cams.entity.ExameLaboratorial</class>
+        <class>cams.entity.PostoGraduacao</class>
+        <class>cams.entity.ServicoPrestado</class>
+        <class>cams.entity.CentroCusto</class>
+        <class>cams.entity.SaidaProduto</class>
+        <class>cams.entity.Parentesco</class>
+        <class>cams.entity.GuiaMedica</class>
+        <class>cams.entity.Soldo</class>
+        <class>cams.entity.GuiaLaboratorialExame</class>
+        <class>cams.entity.AtividadeMedica</class>
+        <class>cams.entity.Dependente</class>
+        <properties>
+            <property name="eclipselink.ddl-generation" value="none"/>
+        </properties>
+    </persistence-unit>
 </persistence>

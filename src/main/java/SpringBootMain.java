@@ -19,7 +19,7 @@ import org.springframework.context.annotation.ComponentScan;
 	"reports",
 	"cronapi",
 	"blockly",
-	"app"
+	"app", "cams"
 })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class SpringBootMain extends SpringBootServletInitializer {
