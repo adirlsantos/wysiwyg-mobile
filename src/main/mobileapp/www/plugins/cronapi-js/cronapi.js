@@ -999,6 +999,27 @@
       $('#'+id).show();
     }
   };
+  
+  /**
+   * @type function
+   * @name {{setActiveTab}}
+   * @nameTags Show| Tab| Exibir| Mostrar | Ativar |  Aba
+   * @platform W
+   * @description {{setActiveTablDesc}}
+   * @param {ObjectType.STRING} component {{ComponentParam}}
+   * @multilayer true
+   */
+  this.cronapi.screen.setActiveTab = function(/** @type {ObjectType.OBJECT} @blockType ids_from_screen*/ id) {
+      this.cronapi.$scope.safeApply( function(){
+        if( $('#'+id).attr('data-target') === undefined){
+           $( '[data-target="#'+ id + '"]' ).tab('show');
+        }
+        else{
+          $('#'+id).tab('show');
+        }
+        
+      });
+  };
 
   /**
    * @type function
@@ -1133,6 +1154,24 @@
   this.cronapi.screen.enableComponent = function(/** @type {ObjectType.OBJECT} @blockType ids_from_screen*/ id) {
     $.each( $('#'+id).find('*').addBack(), function(index, value){ $(value).prop('disabled',false); });
   };
+
+  /**
+   * @type function
+   * @name {{focusComponent}}
+   * @nameTags focus
+   * @description {{focusComponentDesc}}*
+   * @multilayer true
+   */
+  this.cronapi.screen.focusComponent = function(/** @type {ObjectType.OBJECT} @blockType ids_from_screen*/ id) {
+	  this.cronapi.$scope.safeApply( function() { 
+      if( tinyMCE && tinyMCE.get(id) !== undefined) {
+        tinyMCE.get(id).focus();
+      }else{
+      $('#'+id).find('*').addBack().focus();
+      } 
+    });
+  };
+
 
   /**
    * @type function
