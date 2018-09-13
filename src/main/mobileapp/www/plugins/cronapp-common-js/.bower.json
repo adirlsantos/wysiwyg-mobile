@@ -19,12 +19,12 @@
     "test",
     "tests"
   ],
-  "_release": "18e0ddadd9",
+  "_release": "f1dd0f4af0",
   "_resolution": {
     "type": "commit",
-    "commit": "18e0ddadd95a8032ff2fa380f9533b94d148698f"
+    "commit": "f1dd0f4af07c507650f413825cea3138f8473706"
   },
   "_source": "https://github.com/CronApp/cronapp-common-js.git",
-  "_target": "18e0ddadd95a8032ff2fa380f9533b94d148698f",
+  "_target": "f1dd0f4af07c507650f413825cea3138f8473706",
   "_originalSource": "cronapp-common-js"
 }
